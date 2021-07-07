@@ -16,9 +16,8 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.left_joins(:favorites).group(:book_id).order("count(user_id)desc")
-    # favorite = Favorites.order()
-    # @books = Book.all.order(fav_users: "ASC")
+    # @books = Book.left_joins(:favorites).group(:book_id).order("count(user_id)desc")
+    @books = Book.fav_sort
     @book = Book.new
   end
 
