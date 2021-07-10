@@ -40,7 +40,6 @@ class Book < ApplicationRecord
    end
 
    def countup
-   	book = Book.find(params[:id])
-   	count = book.count + 1
+   	increment!(:count,1)
    end
 end

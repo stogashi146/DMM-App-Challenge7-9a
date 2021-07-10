@@ -8,6 +8,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +18,7 @@
           <%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
           <% end %>
         </td>
-        <td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
+        <td><%= link_to book.title, book_path(book),class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
         <!--いいね-->
         <td id="favorite-btn_<%= book.id %>">
@@ -26,6 +27,10 @@
         <!--コメント件数-->
        <td>
          <%= "#{book.post_comments.count}コメント"%>
+       </td>
+       <!--閲覧数-->
+       <td>
+         <%= "閲覧数:#{book.count}" %>
        </td>
 
 
