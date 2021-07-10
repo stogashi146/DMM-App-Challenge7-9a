@@ -12,6 +12,7 @@ class Book < ApplicationRecord
 
 	validates :title, presence: true
 	validates :body, presence: true, length: {maximum: 200}
+	attribute :count, :integer, default: 0
 
 	  # いいねソート
   def self.fav_sort
@@ -38,11 +39,8 @@ class Book < ApplicationRecord
      end
    end
 
-	def self.favsort
-  # 		week = Time.zone.today.in_time_zone.all_week
-		# favsort = includes(:fav_users).where(created_at: week).sort{|a,b| b.fav_users.size <=> a.fav_users.size}
-	end
-
-
-
+   def countup
+   	book = Book.find(params[:id])
+   	count = book.count + 1
+   end
 end
