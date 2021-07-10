@@ -28,6 +28,17 @@
            <td>
              <%= "#{@book.post_comments.count}コメント"%>
            </td>
+          <!--評価の星表示-->
+           <td id="star-rate-<%= @book.id %>"></td>
+           <script>
+             $("#star-rate-<%= @book.id %>").raty({
+               size: 36,
+               starOff: "<%= asset_path("star-off.png") %>",
+               starOn: "<%= asset_path("star-on.png") %>",
+               readOnly: true,
+               score: "<%= @book.rate %>",
+             });
+           </script>
 
           <!--投稿削除、編集-->
           <% if @book.user == current_user %>
