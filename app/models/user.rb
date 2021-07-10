@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :books
   has_many :favorites,dependent: :destroy
   has_many :post_comments,dependent: :destroy
+  has_many :view_counts,dependent: :destroy
 
   ##followed:フォロされた人　follower:フォローした人
   #userがRelationshipのどのカラムを参照するか

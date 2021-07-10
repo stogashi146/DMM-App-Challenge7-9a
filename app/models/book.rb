@@ -4,6 +4,8 @@ class Book < ApplicationRecord
 	# book.find(1).fav_users ⇒　book :id1がfavoriteにあるuser:idを持ってくる
 	has_many :fav_users,through: :favorites,source: :user
 	has_many :post_comments,dependent: :destroy
+	has_many :view_counts,dependent: :destroy
+
 
 	# 引数で渡されたユーザーIDが、Favoritesテーブル内に存在するか調べる
 	def favorited_by?(user)
@@ -39,7 +41,4 @@ class Book < ApplicationRecord
      end
    end
 
-   def countup
-   	increment!(:count,1)
-   end
 end
