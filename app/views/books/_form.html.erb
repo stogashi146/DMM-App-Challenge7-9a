@@ -13,7 +13,8 @@
     <%= f.label :rate,"評価" %>
     <%= f.hidden_field :rate,id: :review_star %>
   </div>
-  <!--評価js-->
+  <!--評価js　rateカラムが空の場合は、評価を入力できる-->
+  <% unless book.rate.present? %>
     <script>
       $("#star").raty({
         size:36,
@@ -22,6 +23,17 @@
         scoreName: "book[rate]",
       });
     </script>
+  <% else %>
+     <script>
+         $("#star").raty({
+           size: 20,
+           starOff: "<%= asset_path("star-off.png") %>",
+           starOn: "<%= asset_path("star-on.png") %>",
+           readOnly: true,
+           score: "<%= book.rate %>",
+         });
+       </script>
+    <% end %>
 
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
