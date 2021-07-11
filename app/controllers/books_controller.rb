@@ -20,7 +20,23 @@ class BooksController < ApplicationController
 
   def index
     # @books = Book.left_joins(:favorites).group(:book_id).order("count(user_id)desc")
-    @books = Book.fav_sort
+    @books = Book.all
+    @method = "new"
+    @method = params[:method]
+      if @method == "new"
+    		Book.all.order(created_at: "asc")
+    	elsif @method == "rate"
+    		Book.all.order(rate: "desc")
+    	else
+  	  	now = Time.current
+  	  	from = now.ago(6.day)
+  	  	# book_idがfa
+  	  	Book.includes(:fav_users).
+  	  		sort{|a,b|
+  	  					b.fav_users.includes(:favorites).where(created_at: from...now).size <=>
+  	  					a.fav_users.includes(:favorites).where(created_at: from...now).size
+  	  		}
+  	  end
     @book = Book.new
   end
 

@@ -1,0 +1,5 @@
+<!--新着順、いいね順、評価順-->
+#<%= form_with url:books_path,method: :get,local: true do |f| %>
+  <%= f.select :method,({"新着順"=>"new","評価順"=>"rate","いいね順"=>"fav"}) %>
+  <%= f.submit "検索" %>
+<% end %>

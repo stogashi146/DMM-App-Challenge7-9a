@@ -16,16 +16,23 @@ class Book < ApplicationRecord
 	validates :body, presence: true, length: {maximum: 200}
 	attribute :count, :integer, default: 0
 
-	  # いいねソート
-  def self.fav_sort
-  	now = Time.current
-  	from = now.ago(6.day)
-  	# book_idがfa
-  	Book.includes(:fav_users).
-  		sort{|a,b|
-  					b.fav_users.includes(:favorites).where(created_at: from...now).size <=>
-  					a.fav_users.includes(:favorites).where(created_at: from...now).size
-  		}
+	# いいねソート
+
+  def self.sort
+  	if @method == "new"
+  		Book.order(created_at: "asc")
+  	elsif @method == "rate"
+  		Book.order(rate: "desc")
+  	else
+	  	now = Time.current
+	  	from = now.ago(6.day)
+	  	# book_idがfa
+	  	Book.includes(:fav_users).
+	  		sort{|a,b|
+	  					b.fav_users.includes(:favorites).where(created_at: from...now).size <=>
+	  					a.fav_users.includes(:favorites).where(created_at: from...now).size
+	  		}
+	  end
   end
 
 
